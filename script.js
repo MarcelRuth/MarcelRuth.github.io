@@ -1,45 +1,38 @@
-// Variables for the molecules
-let molecules = [];
-let molecule_count = 20;
-let colors = {
-    "O": "red",
-    "H": "white",
-    "N": "blue",
-    "C": "lightgrey",
-    "S": "yellow"
-};
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
 
-// Molecule structures
-let moleculeStructures = [
-    // Water (H2O)
-    [{element: "O", x: 50, y: 50}, {element: "H", x: 30, y: 30}, {element: "H", x: 70, y: 30}],
-    // Carbon dioxide (CO2)
-    [{element: "C", x: 50, y: 50}, {element: "O", x: 30, y: 50}, {element: "O", x: 70, y: 50}],
-    // Ammonia (NH3)
-    [{element: "N", x: 50, y: 50}, {element: "H", x: 50, y: 30}, {element: "H", x: 30, y: 70}, {element: "H", x: 70, y: 70}],
-    // Sulfur hexafluoride (SF6)
-    [{element: "S", x: 50, y: 50}, {element: "F", x: 50, y: 20}, {element: "F", x: 20, y: 50}, {element: "F", x: 50, y: 80}, {element: "F", x: 80, y: 50}, {element: "F", x: 30, y: 30}, {element: "F", x: 70, y: 70}]
-];
+let resize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.onresize = resize;
+resize();
 
-// Create molecules
-for (let i = 0; i < molecule_count; i++) {
-    let structure = moleculeStructures[Math.floor(Math.random() * moleculeStructures.length)];
-    let molecule = {
+let nodes = [];
+let edges = [];
+let node_count = 50;
+
+for (let i = 0; i < node_count; i++) {
+    let node = {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        nodes: structure.map(atom => ({...atom, x: atom.x / 100 * canvas.width, y: atom.y / 100 * canvas.height})),
+        vy: (Math.random() - 0.5) * 2
     };
-    molecules.push(molecule);
+    nodes.push(node);
 }
 
-// Animation function
+nodes.forEach((node, i) => {
+    nodes.slice(i+1).forEach(node2 => {
+        let edge = {node1: node, node2: node2};
+        edges.push(edge);
+    });
+});
+
 let step = () => {
     ctx.fillStyle = "#111";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the graph
     nodes.forEach(node => {
         node.x += node.vx;
         node.y += node.vy;
@@ -66,36 +59,7 @@ let step = () => {
             ctx.stroke();
         }
     });
-    
-    // Draw the molecules
-    molecules.forEach(molecule => {
-        molecule.x += molecule.vx;
-        molecule.y += molecule.vy;
 
-        if (molecule.x < 0 || molecule.x > canvas.width) molecule.vx = -molecule.vx;
-        if (molecule.y < 0 || molecule.y > canvas.height) molecule.vy = -molecule.vy;
-
-        molecule.nodes.forEach(node => {
-            ctx.beginPath();
-            ctx.arc(molecule.x + node.x - canvas.width / 2, molecule.y + node.y - canvas.height / 2, 7, 0, 2 * Math.PI);  // Increased node size
-            ctx.fillStyle = colors[node.element];
-            ctx.fill();
-        });
-
-        for (let i = 0; i < molecule.nodes.length; i++) {
-            for (let j = i + 1; j < molecule.nodes.length; j++) {
-                ctx.beginPath();
-                ctx.moveTo(molecule.x + molecule.nodes[i].x - canvas.width / 2, molecule.y + molecule.nodes[i].y - canvas.height / 2);
-                ctx.lineTo(molecule.x + molecule.nodes[j].x - canvas.width / 2, molecule.y + molecule.nodes[j].y - canvas.height / 2);
-                ctx.strokeStyle = "white";
-                ctx.stroke();
-            }
-        }
-    });
-
-    // Request the next animation frame
     requestAnimationFrame(step);
 }
-
-// Start the animation
 step();
