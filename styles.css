@@ -50,7 +50,9 @@ h3 {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    margin-bottom: 20px;  /* Adds space below each button */
 }
+
 .btn:hover {
     background-color: #666;
 }
@@ -71,10 +73,10 @@ h3 {
 
 #logo {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 500px;  /* Adjust as needed */
-    height: 500px;  /* Adjust as needed */
+    top: 2vw;
+    right: 2vw;
+    width: 5vw;
+    height: 5vw;
 }
 
 #description {
@@ -105,13 +107,8 @@ h3 {
     left: 50%;
     transform: translateX(-50%);
     color: red;  /* Adjust as needed */
-    font-size: 20px;  /* Adjust as needed */
+    font-size: 50px;  /* Adjust as needed */
     text-align: center;
-}
-
-#publications-button {
-    position: center;
-    top: 500px;
 }
 
 #home-button {
