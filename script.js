@@ -1,16 +1,4 @@
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
-
-let resize = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.onresize = resize;
-resize();
-
-let nodes = [];
-let edges = [];
-let node_count = 50;
+// Variables for the molecules
 let molecules = [];
 let molecule_count = 20;
 let colors = {
@@ -19,25 +7,9 @@ let colors = {
     "N": "blue",
     "C": "lightgrey",
     "S": "yellow"
-}
+};
 
-for (let i = 0; i < node_count; i++) {
-    let node = {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2
-    };
-    nodes.push(node);
-}
-
-nodes.forEach((node, i) => {
-    nodes.slice(i+1).forEach(node2 => {
-        let edge = {node1: node, node2: node2};
-        edges.push(edge);
-    });
-});
-
+// Molecule structures
 let moleculeStructures = [
     // Water (H2O)
     [{element: "O", x: 50, y: 50}, {element: "H", x: 30, y: 30}, {element: "H", x: 70, y: 30}],
@@ -49,6 +21,7 @@ let moleculeStructures = [
     [{element: "S", x: 50, y: 50}, {element: "F", x: 50, y: 20}, {element: "F", x: 20, y: 50}, {element: "F", x: 50, y: 80}, {element: "F", x: 80, y: 50}, {element: "F", x: 30, y: 30}, {element: "F", x: 70, y: 70}]
 ];
 
+// Create molecules
 for (let i = 0; i < molecule_count; i++) {
     let structure = moleculeStructures[Math.floor(Math.random() * moleculeStructures.length)];
     let molecule = {
@@ -61,37 +34,15 @@ for (let i = 0; i < molecule_count; i++) {
     molecules.push(molecule);
 }
 
+// Animation function
 let step = () => {
     ctx.fillStyle = "#111";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    nodes.forEach(node => {
-        node.x += node.vx;
-        node.y += node.vy;
+    // Draw the graph
+    // ...
 
-        if (node.x < 0 || node.x > canvas.width) node.vx = -node.vx;
-        if (node.y < 0 || node.y > canvas.height) node.vy = -node.vy;
-
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, 2, 0, 2 * Math.PI);
-        ctx.fillStyle = "#FFF";
-        ctx.fill();
-    });
-
-    edges.forEach(edge => {
-        let dx = edge.node1.x - edge.node2.x;
-        let dy = edge.node1.y - edge.node2.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 200) {
-            ctx.beginPath();
-            ctx.moveTo(edge.node1.x, edge.node1.y);
-            ctx.lineTo(edge.node2.x, edge.node2.y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${ 1 - dist / 200 })`;
-            ctx.stroke();
-        }
-    });
-
+    // Draw the molecules
     molecules.forEach(molecule => {
         molecule.x += molecule.vx;
         molecule.y += molecule.vy;
@@ -101,7 +52,7 @@ let step = () => {
 
         molecule.nodes.forEach(node => {
             ctx.beginPath();
-            ctx.arc(molecule.x + node.x - canvas.width / 2, molecule.y + node.y - canvas.height / 2, 5, 0, 2 * Math.PI);
+            ctx.arc(molecule.x + node.x - canvas.width / 2, molecule.y + node.y - canvas.height / 2, 7, 0, 2 * Math.PI);  // Increased node size
             ctx.fillStyle = colors[node.element];
             ctx.fill();
         });
@@ -117,6 +68,9 @@ let step = () => {
         }
     });
 
+    // Request the next animation frame
     requestAnimationFrame(step);
 }
+
+// Start the animation
 step();
