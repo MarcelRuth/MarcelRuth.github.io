@@ -65,12 +65,16 @@ h3 {
     flex: 1;
 }
 
+.publication-list {
+    list-style-type: none;  /* This removes the bullet points */
+}
+
 #logo {
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 100px;  /* Adjust as needed */
-    height: 100px;  /* Adjust as needed */
+    width: 500px;  /* Adjust as needed */
+    height: 500px;  /* Adjust as needed */
 }
 
 #description {
@@ -93,6 +97,21 @@ h3 {
     left: 10px;
     color: white;  /* Adjust as needed */
     font-size: 20px;  /* Adjust as needed */
+}
+
+#warning-text {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;  /* Adjust as needed */
+    font-size: 20px;  /* Adjust as needed */
+    text-align: center;
+}
+
+#publications-button {
+    position: center;
+    top: 500px;
 }
 
 #home-button {
