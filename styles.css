@@ -84,8 +84,9 @@ h3 {
     position: absolute;
     top: 1vw;
     right: 1vw;
-    width: 2vw;
-    height: 2vw;
+    width: 4vw;
+    height: 4vw;
+    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0);
 }
 
 #description {
