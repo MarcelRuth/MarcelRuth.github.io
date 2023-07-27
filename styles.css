@@ -21,6 +21,7 @@ body {
     color: white;
 }
 
+
 a {
     text-decoration: none;  /* Removes the underline */
     color: inherit;  /* Makes the link color the same as the surrounding text */
@@ -36,7 +37,7 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-p {
+h2 {
     color: white;
     font-size: 2em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -87,7 +88,6 @@ h3 {
     right: 1vw;
     width: 8vw;
     height: 8vw;
-    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0);
 }
 
 #description {
