@@ -1,11 +1,15 @@
 body {
     margin: 0;
+    min-width: 1000px;
     height: 100vh;
-    display: flex;
-    align-items: center;
+    display: flex; 
+    position: relative;
+    overflow-x: auto;
+    overflow-y: visible;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
     justify-content: center;
-    overflow: hidden;
-    background-color: #111;
+    align-items: center;
 }
 
 .centered {
@@ -18,35 +22,37 @@ body {
     position: absolute;
     top: 10%;
     text-align: center;
-    color: white;
+    color: #000000;
 }
 
-
 a {
-    text-decoration: none;  /* Removes the underline */
-    color: inherit;  /* Makes the link color the same as the surrounding text */
+    text-decoration: none;
+    color: inherit;
 }
 
 a:hover {
-    color: inherit;  /* Makes the hover color the same as the surrounding text */
+    color: #000000;
 }
 
 h1 {
-    color: white;
+    color: #000000;
     font-size: 3em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    color: #000000;
+    font-size: 2em;
+    margin-left: 100px;
 }
 
 h2 {
-    color: white;
-    font-size: 2em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #000000;
+    font-size: 1.5em;
 }
 
 h3 {
-    color: white;
+    color: #000000;
     font-size: 1em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .btn {
@@ -55,31 +61,39 @@ h3 {
     font-size: 20px;
     text-align: center;
     text-decoration: none;
-    color: #FFF;
-    background-color: #333;
+    color: #000000;
+    background-color: #dddddd;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    margin-bottom: 20px;  /* Adds space below each button */
-    margin-top: 20px;  /* Adds space below each button */
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .btn:hover {
-    background-color: #666;
+    background-color: #bbbbbb;
 }
+
 .publication {
-    display: flex;
+    display: block;
     margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-left: 100px;
 }
+
 .publication .left {
-    flex: 1;
+    width: 100%;
 }
+
 .publication .right {
-    flex: 1;
+    width: 100%;
 }
 
 .publication-list {
-    list-style-type: none;  /* This removes the bullet points */
+    list-style-type: none;
+    padding-top: 50px;
+    margin-left: 1000px;
 }
 
 #logo {
@@ -88,12 +102,15 @@ h3 {
     right: 1vw;
     width: 8vw;
     height: 8vw;
+    background-size: cover;
+    -webkit-mask-image: radial-gradient(circle, white 50%, transparent 100%);
+    mask-image: radial-gradient(circle, white 10%, transparent 100%);
 }
 
 #description {
-    font-size: 20px;  /* Adjust as needed */
-    max-width: 600px;  /* Adjust as needed */
-    margin: 0 auto;  /* Centers the description if it's narrower than the max-width */
+    font-size: 20px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 #background {
@@ -108,8 +125,8 @@ h3 {
     position: absolute;
     bottom: 10px;
     left: 10px;
-    color: white;  /* Adjust as needed */
-    font-size: 20px;  /* Adjust as needed */
+    color: #000000;
+    font-size: 20px;
 }
 
 #warning-text {
@@ -117,8 +134,8 @@ h3 {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    color: red;  /* Adjust as needed */
-    font-size: 50px;  /* Adjust as needed */
+    color: red;
+    font-size: 50px;
     text-align: center;
 }
 

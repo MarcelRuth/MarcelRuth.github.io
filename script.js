@@ -30,7 +30,7 @@ nodes.forEach((node, i) => {
 });
 
 let step = () => {
-    ctx.fillStyle = "#111";
+    ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     nodes.forEach(node => {
@@ -42,7 +42,7 @@ let step = () => {
 
         ctx.beginPath();
         ctx.arc(node.x, node.y, 2, 0, 2 * Math.PI);
-        ctx.fillStyle = "#FFF";
+        ctx.fillStyle = "black";
         ctx.fill();
     });
 
@@ -55,7 +55,7 @@ let step = () => {
             ctx.beginPath();
             ctx.moveTo(edge.node1.x, edge.node1.y);
             ctx.lineTo(edge.node2.x, edge.node2.y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${ 1 - dist / 200 })`;
+            ctx.strokeStyle = `rgba(0, 0, 0, ${ 1 - dist / 200 })`;
             ctx.stroke();
         }
     });

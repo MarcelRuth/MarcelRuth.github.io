@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Marcel Ruth's Page</title>
+        <meta charset="UTF-8">
+        <title>Home</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
@@ -9,16 +10,26 @@
             <canvas id="canvas"></canvas>
         </div>
         <div class="top-centered">
-            <h1>Marcel Ruth</h1>
-            <h2 id="description">I'm a machine learning enthusiast that likes to apply modern statistical tools to chemistry related tasks.</h2>
-            <div class="button-container">
-                <a href="publications.html" class="btn" id="publications-button">Publications</a>  <!-- Publications button -->
-                <a href="https://www.uni-giessen.de/de/fbz/fb08/Inst/organische-chemie/agschreiner/mitarbeiter/coworkers/marcelruth" class="btn" id="University-button">University</a>  <!-- Publications button -->
-            </div>
+            <h1 style="margin-top:50px;">Welcome</h1> <!-- Added some margin to create space -->
+        </div>
+
+        <div class="centered">
+            <h2 style="margin-top:20px;">Marcel Ruth</h2> <!-- Added some margin to create space -->
+            <p id="description">
+                I'm a machine learning enthusiast that likes to apply
+                modern statistical tools to chemistry related tasks
+            </p>
+            <a href="publications.html" class="btn" style="margin-top:20px;">Publications</a>  <!-- Added some margin to create space -->
+        </div>
+
+        <div id="footer-text">
+            Made with ❤️ and AI
+        </div>
+
+        <div id="warning-text">
+            This page is still under active development and construction.
         </div>
         <img src="logo.png" id="logo">  <!-- Add your logo -->
-        <div id="footer-text">Made with the help of AI</div>  <!-- Add your text -->
-        <div id="warning-text">This page is still under active development and construction.</div>
         <script src="script.js"></script>
     </body>
 </html>
