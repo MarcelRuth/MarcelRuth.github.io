@@ -129,6 +129,14 @@ h3 {
     font-size: 20px;
 }
 
+#header-text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #000000;
+    font-size: 20px;
+}
+
 #warning-text {
     position: fixed;
     bottom: 10px;

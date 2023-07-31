@@ -22,11 +22,86 @@ for (let i = 0; i < node_count; i++) {
     nodes.push(node);
 }
 
-nodes.forEach((node, i) => {
-    nodes.slice(i+1).forEach(node2 => {
-        let edge = {node1: node, node2: node2};
-        edges.push(edge);
+let draggingNode = null;
+
+canvas.addEventListener('mousedown', (e) => {
+    let rect = canvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    let closestNode = null;
+    let closestDist = Infinity;
+
+    nodes.forEach(node => {
+        let dx = node.x - x;
+        let dy = node.y - y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < closestDist) {
+            closestNode = node;
+            closestDist = dist;
+        }
     });
+
+    if (closestDist < 10) {
+        draggingNode = closestNode;
+    }
+});
+
+canvas.addEventListener('mousemove', (e) => {
+    if (draggingNode) {
+        let rect = canvas.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+
+        draggingNode.x = x;
+        draggingNode.y = y;
+    }
+});
+
+canvas.addEventListener('mouseup', (e) => {
+    draggingNode = null;
+});
+
+canvas.addEventListener('click', (e) => {
+    let rect = canvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    let node = {
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2
+    };
+
+    nodes.push(node);
+});
+
+canvas.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+
+    let rect = canvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    let closestNode = null;
+    let closestDist = Infinity;
+
+    nodes.forEach(node => {
+        let dx = node.x - x;
+        let dy = node.y - y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < closestDist) {
+            closestNode = node;
+            closestDist = dist;
+        }
+    });
+
+    if (closestDist < 10) {
+        nodes = nodes.filter(node => node !== closestNode);
+    }
 });
 
 let step = () => {
@@ -34,11 +109,13 @@ let step = () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     nodes.forEach(node => {
-        node.x += node.vx;
-        node.y += node.vy;
+        if (node !== draggingNode) {
+            node.x += node.vx;
+            node.y += node.vy;
 
-        if (node.x < 0 || node.x > canvas.width) node.vx = -node.vx;
-        if (node.y < 0 || node.y > canvas.height) node.vy = -node.vy;
+            if (node.x < 0 || node.x > canvas.width) node.vx = -node.vx;
+            if (node.y < 0 || node.y > canvas.height) node.vy = -node.vy;
+        }
 
         ctx.beginPath();
         ctx.arc(node.x, node.y, 2, 0, 2 * Math.PI);
@@ -46,18 +123,20 @@ let step = () => {
         ctx.fill();
     });
 
-    edges.forEach(edge => {
-        let dx = edge.node1.x - edge.node2.x;
-        let dy = edge.node1.y - edge.node2.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
+    nodes.forEach((node, i) => {
+        nodes.slice(i+1).forEach(node2 => {
+            let dx = node.x - node2.x;
+            let dy = node.y - node2.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 200) {
-            ctx.beginPath();
-            ctx.moveTo(edge.node1.x, edge.node1.y);
-            ctx.lineTo(edge.node2.x, edge.node2.y);
-            ctx.strokeStyle = `rgba(0, 0, 0, ${ 1 - dist / 200 })`;
-            ctx.stroke();
-        }
+            if (dist < 200) {
+                ctx.beginPath();
+                ctx.moveTo(node.x, node.y);
+                ctx.lineTo(node2.x, node2.y);
+                ctx.strokeStyle = `rgba(0, 0, 0, ${ 1 - dist / 200 })`;
+                ctx.stroke();
+            }
+        });
     });
 
     requestAnimationFrame(step);
